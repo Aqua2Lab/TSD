@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TSD Rally - Speed Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f4f8;
+      padding: 20px;
+      color: #222;
+      max-width: 500px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #007aff; /* iPhone blue */
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background: #34c759; /* iPhone green */
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #28a745;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #fff;
+      border-radius: 10px;
+      font-size: 18px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>TSD Rally - Speed Calculator</h1>
+
+  <label>Distance:</label>
+  <input type="number" id="distance" placeholder="Enter distance">
+  <select id="distanceUnit">
+    <option value="km">Kilometers</option>
+    <option value="m">Meters</option>
+  </select>
+
+  <label>Time:</label>
+  <input type="number" id="time" placeholder="Enter time">
+  <select id="timeUnit">
+    <option value="minutes">Minutes</option>
+    <option value="hours">Hours</option>
+  </select>
+
+  <button onclick="calculate()">Calculate Speed</button>
+
+  <div class="result" id="result">Result will appear here</div>
+
+  <script>
+    function calculate() {
+      let distance = parseFloat(document.getElementById('distance').value);
+      let distanceUnit = document.getElementById('distanceUnit').value;
+      let time = parseFloat(document.getElementById('time').value);
+      let timeUnit = document.getElementById('timeUnit').value;
+
+      if (isNaN(distance) || isNaN(time) || distance <= 0 || time <= 0) {
+        document.getElementById('result').innerText = "⚠️ Please enter valid values.";
+        return;
+      }
+
+      // convert distance to kilometers
+      if (distanceUnit === "m") {
+        distance = distance / 1000;
+      }
+
+      // convert time to hours
+      if (timeUnit === "minutes") {
+        time = time / 60;
+      }
+
+      let speed = distance / time;
+      document.getElementById('result').innerText = 
+        "Required Average Speed: " + speed.toFixed(2) + " km/h";
+    }
+  </script>
+</body>
+</html>
